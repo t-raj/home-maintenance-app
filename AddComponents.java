@@ -63,31 +63,3 @@ public class AddComponents {
     }
 
 }
-
-class TestRun {
-    public static void main(String[] args) {
-        AddComponents test = new AddComponents();
-        System.out.println(test.getItemName());
-        System.out.println(test.getModel());
-        System.out.println(test.getLastChangeDate());
-        System.out.println(test.getNotes());
-
-        AddComponents testWin = new Windows();
-        System.out.println(testWin.getItemName());
-        System.out.println(testWin.getModel());
-        System.out.println(testWin.getLastChangeDate());
-        System.out.println(testWin.getNotes());
-
-        AddComponents testLight = new LightBulbs();
-        System.out.println(testLight.getItemName());
-        System.out.println(testLight.getModel());
-        System.out.println(testLight.getLastChangeDate());
-        System.out.println(testLight.getNotes());
-
-        AddComponents testHeat = new Heater();
-        System.out.println(testHeat.getItemName());
-        System.out.println(testHeat.getModel());
-        System.out.println(testHeat.getLastChangeDate());
-        System.out.println(testHeat.getNotes());
-    }
-}

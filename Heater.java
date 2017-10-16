@@ -4,11 +4,8 @@ public class Heater extends AddComponents {
     private String notes;
     //Constructors
     public Heater() {
-        super();
-    }
-
-    public Heater(String model, String lastChangeDate, String notes) {
-        super("Heater", model, lastChangeDate, notes);
+        super("Heater");
+        this.setNotes();
     }
 
     //Setters

@@ -1,22 +1,23 @@
+import java.util.Scanner;
+
 public class AddComponents {
     private String itemName;
     private String model;
     private String lastChangeDate;
-    private String notes;
+    private String notes = "No notes yet";
 
     //Constructors
     public AddComponents(){
-        this.itemName = "Not Specified";
-        this.model = "Not Specified";
-        this.lastChangeDate = "Not Specified";
-        this.notes = "Not Specified";
+        setItemName();
+        setModel();
+        setLastChangeDate();
+        setNotes();
     }
 
-    public AddComponents(String itemName, String model, String lastChangeDate, String notes){
+    public AddComponents(String itemName){
         this.itemName = itemName;
-        this.model = model;
-        this.lastChangeDate = lastChangeDate;
-        this.notes = notes;
+        setModel();
+        setLastChangeDate();
     }
 
     //Getters
@@ -37,19 +38,27 @@ public class AddComponents {
     }
 
     //Setters
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setItemName() {
+        Scanner user = new Scanner(System.in);
+        System.out.println("Enter the name of the household object you'd like to track:");
+        this.itemName = user.nextLine();
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setModel() {
+        Scanner user = new Scanner(System.in);
+        System.out.println("Enter the model of the object, or n/a if not available:");
+        this.model = user.nextLine();
     }
 
-    public void setLastChangeDate(String lastChangeDate) {
-        this.lastChangeDate = lastChangeDate;
+    public void setLastChangeDate() {
+        Scanner user = new Scanner(System.in);
+        System.out.println("Enter the date that you last serviced this object:");
+        this.lastChangeDate = user.nextLine();
     }
 
-    public void setNotes(String notes) {
+    public void setNotes() {
+        Scanner user = new Scanner(System.in);
+        System.out.println("Enter any notes you have about servicing this object:");
         this.notes = notes;
     }
 

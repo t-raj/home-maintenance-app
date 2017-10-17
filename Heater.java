@@ -1,14 +1,18 @@
 import java.util.Scanner;
 
 public class Heater extends AddComponents {
+    //Initiate variable for heater specific notes
     private String notes;
     //Constructors
+    //Create item with itemName predetermined, prompt for model and last maintenance date
+    //Figure out the type of heater before assigning instructions
     public Heater() {
         super("Heater");
         this.setNotes();
     }
 
     //Setters
+    //Prompts for figuring out the type of heater
     public void setNotes() {
         String instructions = "";
         Scanner user = new Scanner(System.in);
@@ -31,6 +35,7 @@ public class Heater extends AddComponents {
     }
 
     //Getters
+    //Call heater specific notes
     public String getNotes() {
         return this.notes;
     }

@@ -20,6 +20,14 @@ public class AddComponents {
         setLastChangeDate();
     }
 
+    //Constructor for testing purposes
+    public AddComponents(String itemName, String model, String lastChangeDate, String notes){
+        this.itemName = itemName;
+        this.model = model;
+        this.lastChangeDate = lastChangeDate;
+        this.notes = notes;
+    }
+
     //Getters
     public String getItemName() {
         return itemName;

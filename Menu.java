@@ -75,7 +75,9 @@ public class Menu {
     }
 
     public static void listComponents(HashMap<String, AddComponents> components) {
-        System.out.println("components: " + components.keySet() + "\n");
+        System.out.println("My home maintenance items:");
+        for (String key : components.keySet())
+            System.out.println(key);
     }
 
     public static void componentFactory(HashMap<String, AddComponents> components){
@@ -84,18 +86,40 @@ public class Menu {
         System.out.println("Added item to component list");
     }
 
+    public static void componentFactory(HashMap<String, AddComponents> components, String name){
+        Scanner sc = new Scanner(System.in);
+        AddComponents component = components.get(name);
+        System.out.println("Type \"name\" to edit the name");
+        System.out.println("Type \"model\" to edit the model");
+        System.out.println("Type \"date\" to edit the date of the last maintenance");
+        System.out.println("Type \"notes\" to edit the notes");
+        String response = sc.next();
+        if (response.equals("name"))
+            component.setItemName();
+        else if (response.equals("model"))
+            component.setModel();
+        else if (response.equals("date"))
+            component.setLastChangeDate();
+        else if (response.equals("notes"))
+            component.setNotes();
+        else
+            System.out.println("That was not one of the options, returning to the main menu..");
+        components.put(component.getItemName(), component);
+        System.out.println("Added updates to component list");
+    }
+
 
     public static void getComponentInfo(String name, HashMap<String, AddComponents> components) {
         Scanner sc = new Scanner(System.in);
         AddComponents component = components.get(name);
-        System.out.println("name " + component.getItemName());
-        System.out.println("model " + component.getModel());
-        System.out.println("last change date " + component.getLastChangeDate());
-        System.out.println("notes " + component.getNotes());
+        System.out.println("Name: " + component.getItemName());
+        System.out.println("Model: " + component.getModel());
+        System.out.println("Date of last maintenance: " + component.getLastChangeDate());
+        System.out.println("Maintenance notes: " + component.getNotes());
         System.out.println("Would you like to edit this component? (y/n)");
-        String response = (sc.next()).toLowerCase();
+        String response = sc.next().toLowerCase();
         if ((response.equals("y")) || (response.equals("Y")))
-            componentFactory(components);
+            componentFactory(components, name);
     }
 }
 

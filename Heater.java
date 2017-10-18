@@ -25,7 +25,6 @@ public class Heater extends AddComponents {
             heat = user.nextLine();
             heat = heat.toLowerCase();
         }
-        user.close();
         if (heat.equals("radiators") || heat.equals("radiator")) {
             instructions = "When your radiators start in the Fall, check all around for leaks. If you notice any let your landlord know ASAP!";
         } else {

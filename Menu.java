@@ -11,7 +11,7 @@ public class Menu {
         PrintStream std = System.out;
         PrintStream fileStream;
         System.out.println("Type \"list\" for a list of all saved components, \"add\" to add a new component, the name of a component to view or edit its details, or \"details\" to view details for all components, or \"save\" to write this info to a file.");
-        String response = sc.next();
+        String response = (sc.next()).toLowerCase();
         if (response == "list")
             listComponents(sc, components);
         else if (response == "add")
@@ -19,7 +19,7 @@ public class Menu {
         else if ((response == "details") || (response == "save")) {
             if (response == "save") {
                 System.out.println("Enter name of file to write to");
-                String response2 = sc.next();
+                String response2 = (sc.next()).toLowerCase();
                 try {
                     File file = new File(response2);
                     PrintStream fileout = new PrintStream(file);
@@ -46,6 +46,12 @@ public class Menu {
 
     public static void componentFactory(Scanner sc, HashMap<String, AddComponents> components, String name){
         AddComponents component = components.get(name);
+        if (name == "heater")
+            component = new Heater();
+        if (name == "windows")
+            component = new Windows();
+        if (name == "light bulbs")
+            component = new LightBulbs();
         if(component == null) {
             component = new AddComponents();
             components.put(name, component);
@@ -66,7 +72,7 @@ public class Menu {
         System.out.println("last change date " + component.getLastChangeDate());
         System.out.println("notes " + component.getNotes());
         System.out.println("Would you like to edit this component? (y/n)");
-        String response = sc.next();
+        String response = (sc.next()).toLowerCase();
         if ((response == "y") || (response == "Y"))
             componentFactory(sc, components, name);
     }

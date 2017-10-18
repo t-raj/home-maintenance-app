@@ -18,7 +18,7 @@ public class Menu {
             componentFactory(sc, components, null);
         else if ((response == "details") || (response == "save")) {
             if (response == "save") {
-                System.out.println("Enter name of file to write to");
+                System.out.println("Enter name of file to write to"); 
                 String response2 = (sc.next()).toLowerCase();
                 try {
                     File file = new File(response2);

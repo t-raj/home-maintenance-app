@@ -1,29 +1,21 @@
-class Windows {
-    private int numOfWindows;
-    private int areaOfWindows;
-    private String windowSealingInstructions;
+import java.util.Scanner;
 
-    public int getNumOfWindows() {
-        return numOfWindows;
+public class Windows extends AddComponents {
+    //Instructions for sealing windows in the winter
+    private String notes = "You can buy window insulation kits from a hardware store or online. " +
+            "Kits usually include plastic shrink film that is applied to the indoor window frame with " +
+            "double-stick tape, then heated with a hair dryer to shrink the film and remove any wrinkles.";
+
+    //Constructors
+    //Create item with itemName predetermined, prompt for model and last maintenance date
+    public Windows() {
+        super("Windows");
     }
 
-    public int getAreaOfWindows() {
-        return areaOfWindows;
+    //Getters
+    //Call windows specific notes
+    public String getNotes(){
+        return this.notes;
     }
 
-    public String getWindowSealingInstructions() {
-        return windowSealingInstructions;
-    }
-
-    public void setNumOfWindows(int numOfWindows) {
-        this.numOfWindows = numOfWindows;
-    }
-
-    public void setAreaOfWindows(int areaOfWindows) {
-        this.areaOfWindows = areaOfWindows;
-    }
-
-    public void setWindowSealingInstructions(String windowSealingInstructions) {
-        this.windowSealingInstructions = windowSealingInstructions;
-    }
 }

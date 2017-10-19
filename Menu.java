@@ -22,7 +22,7 @@ public class Menu {
             System.out.println("Type \"exit\" to exit the program");
             String response = sc.next().toLowerCase();
             if (response.equals("setup")) {
-                setup(components);
+                setup(components, sc);
             } else if (response.equals("list"))
                 if (components.isEmpty()) {
                     System.out.println("There are no saved items yet!");
@@ -30,7 +30,7 @@ public class Menu {
                     listComponents(components);
                 }
             else if (response.equals("add"))
-                componentFactory(components);
+                componentFactory(components, sc, null);
             else if (response.equals("details")) {
                 if (components.isEmpty())
                     System.out.println("There are no saved items yet!");
@@ -71,17 +71,14 @@ public class Menu {
     }
 
     //Walks the user through adding a heater, light bulbs, and windows to the component list, calling each component's custom constructor
-    public static void setup(HashMap<String, AddComponents> components){
+    public static void setup(HashMap<String, AddComponents> components, Scanner sc){
         System.out.println("First we'll set up info about your heater");
-        AddComponents heater = new Heater();
+        componentFactory(components, sc, "heater");
         System.out.println("Next we'll set up info about your light bulbs");
-        AddComponents lightbulbs = new LightBulbs();
+        componentFactory(components, sc, "light bulbs");
         System.out.println("Lastly we'll set up info about your windows");
         AddComponents windows = new Windows();
-        components.put(heater.getItemName(), heater);
-        components.put(lightbulbs.getItemName(), lightbulbs);
-        components.put(windows.getItemName(), windows);
-        System.out.println("Added items to component list");
+        componentFactory(components, sc, "windows");
     }
 
     //Lists the names of all components
@@ -92,15 +89,27 @@ public class Menu {
     }
 
     //Creates a new component and adds it to the component list
-    public static void componentFactory(HashMap<String, AddComponents> components){
-        AddComponents component = new AddComponents();
+    public static void componentFactory(HashMap<String, AddComponents> components, Scanner sc, String name){
+        AddComponents component;
+       if (name.equals(null)) {
+           System.out.println("Enter component name");
+            name = sc.next().toLowerCase();
+       }
+        if (name.equals("heater"))
+            component = new Heater();
+        else if (name.equals("light bulbs"))
+            component = new LightBulbs();
+        else if (name.equals("windows"))
+            component = new Windows();
+        else
+            component = new AddComponents();
         components.put(component.getItemName(), component);
         System.out.println("Added item to component list");
     }
 
     //Edits a component or creates a new one and adds it to the component list if it doesn't exist
     //Used when component name is known
-    public static void componentFactory(HashMap<String, AddComponents> components, String name){
+    public static void componentEdit(HashMap<String, AddComponents> components, String name){
         Scanner sc = new Scanner(System.in);
         AddComponents component = components.get(name);
         System.out.println("Type \"name\" to edit the name");
@@ -134,7 +143,7 @@ public class Menu {
         System.out.println("Would you like to edit this component? (y/n)");
         String response = sc.next().toLowerCase();
         if ((response.equals("y")) || (response.equals("Y")))
-            componentFactory(components, name);
+            componentEdit(components, name);
     }
 
     public static String saveComponentInfo(String name, HashMap<String, AddComponents> components) {

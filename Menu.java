@@ -2,7 +2,10 @@ import java.util.*;
 import java.io.*;
 
 public class Menu {
-
+/* Creates a hash map to store components in.
+   Calls methods based on the menu option the user chooses.
+   Output is directed to the console unless the "save" option is chosen, in which case it's directed to a file the user names.
+ */
     public static void main(String[] args) {
         //This hash map will hold all the components the user adds
         HashMap<String, AddComponents> components = new HashMap<String, AddComponents>();
@@ -61,6 +64,7 @@ public class Menu {
         }
     }
 
+    //Walks the user through adding a heater, light bulbs, and windows to the component list, calling each component's custom constructor
     public static void setup(HashMap<String, AddComponents> components){
         System.out.println("First we'll set up info about your heater");
         AddComponents heater = new Heater();
@@ -74,18 +78,22 @@ public class Menu {
         System.out.println("Added items to component list");
     }
 
+    //Lists the names of all components
     public static void listComponents(HashMap<String, AddComponents> components) {
         System.out.println("My home maintenance items:");
         for (String key : components.keySet())
             System.out.println(key);
     }
 
+    //Creates a new component and adds it to the component list
     public static void componentFactory(HashMap<String, AddComponents> components){
         AddComponents component = new AddComponents();
         components.put(component.getItemName(), component);
         System.out.println("Added item to component list");
     }
 
+    //Edits a component or creates a new one and adds it to the component list if it doesn't exist
+    //Used when component name is known
     public static void componentFactory(HashMap<String, AddComponents> components, String name){
         Scanner sc = new Scanner(System.in);
         AddComponents component = components.get(name);
@@ -108,7 +116,8 @@ public class Menu {
         System.out.println("Added updates to component list");
     }
 
-
+    //Prints out a component's info
+    //Asks if the user wants to edit the component and calls a component editing method if yes
     public static void getComponentInfo(String name, HashMap<String, AddComponents> components) {
         Scanner sc = new Scanner(System.in);
         AddComponents component = components.get(name);

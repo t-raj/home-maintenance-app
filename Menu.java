@@ -11,8 +11,8 @@ public class Menu {
         HashMap<String, AddComponents> components = new HashMap<String, AddComponents>();
         while (true) {
             Scanner sc = new Scanner(System.in);
-            PrintStream std = System.out;
-            PrintStream fileStream;
+            //PrintStream std = System.out;
+            //PrintStream fileStream;
             System.out.println("Type \"setup\" to set up your account for the first time");
             System.out.println("Type \"list\" for a list of all saved components");
             System.out.println("Type \"add\" to add a new component");
@@ -32,30 +32,36 @@ public class Menu {
             else if (response.equals("add"))
                 componentFactory(components);
             else if (response.equals("details")) {
-                System.out.println("Type the name of the item that you'd like to view:");
-                sc.nextLine();
-                String response2 = sc.nextLine();
-                while (!components.containsKey(response2)) {
-                    System.out.println("That item is not in the list! Please enter the name of the item you wish to view:");
-                    response2 = sc.nextLine();
+                if (components.isEmpty())
+                    System.out.println("There are no saved items yet!");
+                else {
+                    System.out.println("Type the name of the item that you'd like to view:");
+                    sc.nextLine();
+                    String response2 = sc.nextLine();
+                    while (!components.containsKey(response2)) {
+                        System.out.println("That item is not in the list! Please enter the name of the item you wish to view:");
+                        response2 = sc.nextLine();
+                    }
+                    getComponentInfo(response2, components);
                 }
-                getComponentInfo(response2, components);
             } else if (response.equals("save")) {
-                System.out.println("Enter name of file to write to");
+                System.out.println("Enter your name:");
+                sc.nextLine();
                 String response3 = (sc.nextLine());
+                String filename = response3 + ".txt";
+                //Stackoverflow question 2885173
                 try {
-                    File file = new File(response3);
-                    PrintStream fileout = new PrintStream(file);
-                    System.setOut(fileout);
+                    PrintWriter writer = new PrintWriter(filename, "UTF-8");
+                    writer.println(response3 + "'s Home List");
+                    for (String key : components.keySet())
+                        writer.println(saveComponentInfo(key, components));
+                    writer.close();
+                    System.out.println("Your file has been saved!");
+                } catch (UnsupportedEncodingException e){
+                    System.out.println(e.getMessage());
                 } catch (FileNotFoundException e) {
                     System.out.println(e.getMessage());
-                    System.out.println("Output will be written to the console instead;");
                 }
-                for (Map.Entry<String, AddComponents> entry : components.entrySet()) {
-                    String key = entry.getKey();
-                    getComponentInfo(key, components);
-                }
-                System.setOut(std);
             }
             else if (response.equals("exit")){
                 System.exit(0);
@@ -130,5 +136,12 @@ public class Menu {
         if ((response.equals("y")) || (response.equals("Y")))
             componentFactory(components, name);
     }
-}
 
+    public static String saveComponentInfo(String name, HashMap<String, AddComponents> components) {
+        AddComponents component = components.get(name);
+        return "Name: " + component.getItemName()
+                + " Model: " + component.getModel()
+                + " Date of last maintenance: " + component.getLastChangeDate()
+                + " Maintenance notes: " + component.getNotes();
+    }
+}

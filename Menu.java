@@ -36,7 +36,7 @@ public class Menu {
                     listComponents(components);
                 }
             else if (response.equals("add"))
-                componentFactory(components, sc, null);
+                componentFactory(components, sc, "null");
             else if (response.equals("details")) {
                 if (components.isEmpty())
                     System.out.println("There are no saved items yet!");
@@ -86,7 +86,6 @@ public class Menu {
         System.out.println("Next we'll set up info about your light bulbs");
         componentFactory(components, sc, "light bulbs");
         System.out.println("Lastly we'll set up info about your windows");
-        AddComponents windows = new Windows();
         componentFactory(components, sc, "windows");
     }
 
@@ -100,10 +99,6 @@ public class Menu {
     //Creates a new component and adds it to the component list
     public static void componentFactory(HashMap<String, AddComponents> components, Scanner sc, String name){
         AddComponents component;
-       if (name.equals(null)) {
-           System.out.println("Enter component name");
-            name = sc.next().toLowerCase();
-       }
         if (name.equals("heater"))
             component = new Heater();
         else if (name.equals("light bulbs"))

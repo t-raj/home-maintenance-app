@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.util.logging.*;
 
 public class Menu {
 /* Creates a hash map to store components in.
@@ -7,6 +8,9 @@ public class Menu {
    Output is directed to the console unless the "save" option is chosen, in which case it's directed to a file the user names.
  */
     public static void main(String[] args) {
+        final Logger LOGGER = Logger.getLogger(Menu.class.getName());
+        Date date = new Date();
+        LOGGER.info("Main method invoked at " + date.toString());
         //This hash map will hold all the components the user adds
         HashMap<String, AddComponents> components = new HashMap<String, AddComponents>();
         while (true) {
@@ -21,6 +25,8 @@ public class Menu {
             System.out.println("Type \"save\" to write this info to a file.");
             System.out.println("Type \"exit\" to exit the program");
             String response = sc.next().toLowerCase();
+            date = new Date();
+            LOGGER.info(response + " option invoked at " + date.toString());
             if (response.equals("setup")) {
                 setup(components, sc);
             } else if (response.equals("list"))
@@ -58,9 +64,12 @@ public class Menu {
                     writer.close();
                     System.out.println("Your file has been saved!");
                 } catch (UnsupportedEncodingException e){
+                    date = new Date();
+                    LOGGER.info(e.getMessage() + " " + date.toString());
                     System.out.println(e.getMessage());
                 } catch (FileNotFoundException e) {
-                    System.out.println(e.getMessage());
+                    date = new Date();
+                    LOGGER.info(e.getMessage() + " " + date.toString());
                 }
             }
             else if (response.equals("exit")){

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 function create_service_user {
  user=$1
  #check to make sure user and group dont exist
@@ -15,17 +14,6 @@ function create_service_user {
  fi
 }
 
-function install_crontab {
- crontab=$1
- #move crontab to root crontab location
- mkdir /var/spool/cron/root
- mv /tmp/app/configs/$crontab /var/spool/cron/root/$crontab
- #override crontab to run with file
- cd /var/spool/cron/root
- crontab -u checker.svc $crontab
- cd /
-}
-
 function setup_daemon {
    service_file=$1
    cd etc
@@ -33,18 +21,10 @@ function setup_daemon {
    cd systemd
    mkdir system
    cd /
-   mv /tmp/app/configs/$service_file /etc/systemd/system/$service_file
+   mv /tmp/app/$service_file /etc/systemd/system/$service_file #move our app to systemD TODO move all classes
    systemctl enable $service_file
    systemctl start $service_file
 }
-
-function create_opt_folder {
-  foldername=$1
-  user=$2
-  echo "user: " $user "creates folder: " $foldername
-  change_ownership $user $foldername
-}
-
 
 function change_ownership {
   user=$1
@@ -66,27 +46,13 @@ function untar_application {
 }
 
 function main_daemon {
-  app_name="flask_app"
-  user="flask.svc"
+  app_name="menu.java"
+  user="app.svc"
   create_service_user $user
-  #create_opt_folder $app_name $user
   untar_application $app_name
   change_ownership $user $app_name
   # move daemon config flask_app.service to correct spot in function below
-  setup_daemon "flask_app.service"
+  setup_daemon "app.service"
 }
 
-function main_cron {
-  app_name="checker"
-  user="checker.svc"
-  create_service_user $user
-  #create_opt_folder $app_name $user
-  untar_application $app_name
-  change_ownership $user $app_name
-  # move crontab to crontab for root to correct spot in function below
-  install_crontab "checker_crontab"
-}
-
-yum -y install $(cat /tmp/yum_pkgs.txt)
-main_cron
 main_daemon

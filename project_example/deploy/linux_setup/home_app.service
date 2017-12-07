@@ -1,0 +1,13 @@
+[Unit]
+Description=Home App
+
+[Service]
+Environment=HOME_APP=app.java
+User=home.svc
+Group=homers
+WorkingDirectory=/opt/home_app/awesome_app
+ExecStart=/bin/python -m home run
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

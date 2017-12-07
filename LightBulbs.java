@@ -8,14 +8,20 @@ public class LightBulbs extends AddComponents {
 
     //Constructors
     //Create item with itemName predetermined, prompt for model and last maintenance date
-    public LightBulbs() {
-        super("Light Bulbs");
+    public LightBulbs(String model, String lastChangeDate) {
+        super("Light Bulbs", model, lastChangeDate);
     }
 
     //Getters
     //Call light bulb specific notes
     public String getNotes(){
         return this.notes;
+    }
+
+    //Setters
+    //Add to Light Bulb notes
+    public void setNotes(String notes) {
+        this.notes = this.notes + "/n Your notes: " + notes;
     }
 
 }

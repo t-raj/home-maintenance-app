@@ -35,8 +35,18 @@ public class Menu {
                 } else {
                     listComponents(components);
                 }
-            else if (response.equals("add"))
-                componentFactory(components, sc, "null");
+            else if (response.equals("add")) {
+                System.out.println("Enter the name of the item: ");
+                sc.next();
+                String name = sc.nextLine();
+                System.out.println("Enter the model of the item or n/a if not available: ");
+                String model = sc.nextLine();
+                System.out.println("Enter the date you last serviced the item: ");
+                String lastChangeDate = sc.nextLine();
+                System.out.println("Enter your notes/instructions for this item: ");
+                String notes = sc.nextLine();
+                componentFactory(components, name, model, lastChangeDate, notes);
+            }
             else if (response.equals("details")) {
                 if (components.isEmpty())
                     System.out.println("There are no saved items yet!");
@@ -81,12 +91,26 @@ public class Menu {
 
     //Walks the user through adding a heater, light bulbs, and windows to the component list, calling each component's custom constructor
     public static void setup(HashMap<String, AddComponents> components, Scanner sc){
+        String notes = "n/a";
         System.out.println("First we'll set up info about your heater");
-        componentFactory(components, sc, "heater");
+        System.out.println("What is the model of your heater? Type n/a if not applicable or available.");
+        sc.next();
+        String model = sc.nextLine();
+        System.out.println("What is the date you last serviced this item?");
+        String lastChangeDate = sc.nextLine();
+        componentFactory(components,"heater", model, lastChangeDate, notes);
         System.out.println("Next we'll set up info about your light bulbs");
-        componentFactory(components, sc, "light bulbs");
+        System.out.println("What type of bulbs do you use? Type n/a if not applicable or available.");
+        model = sc.nextLine();
+        System.out.println("When did you last replace your light bulbs? Type n/a if you are not sure.");
+        lastChangeDate = sc.nextLine();
+        componentFactory(components,"light bulbs", model, lastChangeDate, notes);
         System.out.println("Lastly we'll set up info about your windows");
-        componentFactory(components, sc, "windows");
+        System.out.println("What type of windows do you have? Type n/a if not applicable or available.");
+        model = sc.nextLine();
+        System.out.println("When did you last perform maintenance on your windows? Type n/a if not applicable or available.");
+        lastChangeDate = sc.nextLine();
+        componentFactory(components,"windows", model, lastChangeDate, notes);
     }
 
     //Lists the names of all components
@@ -97,16 +121,16 @@ public class Menu {
     }
 
     //Creates a new component and adds it to the component list
-    public static void componentFactory(HashMap<String, AddComponents> components, Scanner sc, String name){
+    public static void componentFactory(HashMap<String, AddComponents> components, String name, String model, String lastChangeDate, String notes){
         AddComponents component;
         if (name.equals("heater"))
-            component = new Heater();
+            component = new Heater(model, lastChangeDate);
         else if (name.equals("light bulbs"))
-            component = new LightBulbs();
+            component = new LightBulbs(model, lastChangeDate);
         else if (name.equals("windows"))
-            component = new Windows();
+            component = new Windows(model, lastChangeDate);
         else
-            component = new AddComponents();
+            component = new AddComponents(name, model, lastChangeDate, notes);
         components.put(component.getItemName(), component);
         System.out.println("Added item to component list");
     }
@@ -121,14 +145,26 @@ public class Menu {
         System.out.println("Type \"date\" to edit the date of the last maintenance");
         System.out.println("Type \"notes\" to edit the notes");
         String response = sc.next();
-        if (response.equals("name"))
-            component.setItemName();
-        else if (response.equals("model"))
-            component.setModel();
-        else if (response.equals("date"))
-            component.setLastChangeDate();
-        else if (response.equals("notes"))
-            component.setNotes();
+        if (response.equals("name")) {
+            System.out.println("Enter the new name for this item: ");
+            String newName = sc.nextLine();
+            component.setItemName(newName);
+        }
+        else if (response.equals("model")) {
+            System.out.println("Enter the new model for this item: ");
+            String newModel = sc.nextLine();
+            component.setModel(newModel);
+        }
+        else if (response.equals("date")) {
+            System.out.println("Enter the date you last serviced this item: ");
+            String newDate = sc.nextLine();
+            component.setLastChangeDate(newDate);
+        }
+        else if (response.equals("notes")) {
+            System.out.println("Enter your updated notes for this item: ");
+            String newNotes = sc.nextLine();
+            component.setNotes(newNotes);
+        }
         else
             System.out.println("That was not one of the options, returning to the main menu..");
         components.put(component.getItemName(), component);

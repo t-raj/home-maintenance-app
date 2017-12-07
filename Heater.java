@@ -6,8 +6,8 @@ public class Heater extends AddComponents {
     //Constructors
     //Create item with itemName predetermined, prompt for model and last maintenance date
     //Figure out the type of heater before assigning instructions
-    public Heater() {
-        super("Heater");
+    public Heater(String model, String lastChangeDate) {
+        super("Heater", model, lastChangeDate);
         this.setNotes();
     }
 
@@ -37,6 +37,12 @@ public class Heater extends AddComponents {
     //Call heater specific notes
     public String getNotes() {
         return this.notes;
+    }
+
+    //Setters
+    //Add to Heater notes
+    public void setNotes(String notes) {
+        this.notes = this.notes + "/n Your notes: " + notes;
     }
 
 }

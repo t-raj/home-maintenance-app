@@ -8,14 +8,20 @@ public class Windows extends AddComponents {
 
     //Constructors
     //Create item with itemName predetermined, prompt for model and last maintenance date
-    public Windows() {
-        super("Windows");
+    public Windows(String model, String lastChangeDate) {
+        super("Windows", model, lastChangeDate);
     }
 
     //Getters
     //Call windows specific notes
     public String getNotes(){
         return this.notes;
+    }
+
+    //Setters
+    //Add to windows notes
+    public void setNotes(String notes) {
+        this.notes = this.notes + "/n Your notes: " + notes;
     }
 
 }

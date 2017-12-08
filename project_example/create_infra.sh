@@ -102,7 +102,6 @@ echo -n "aws ec2 terminate-instances --instance-ids ${ec2instance_id}\n" >> $des
 echo -n "aws ec2 delete-security-group --group-id $security_group_id\n" >> $destroy_file
 echo -n "aws ec2 delete-subnet --subnet-id $privsub_id\n" >> $destroy_file
 echo -n "aws ec2 delete-subnet --subnet-id $pubsub_id\n" >> $destroy_file
-#Note: Add deletes for RDS subnet and routetable as well here if you have one
 echo -n "aws ec2 delete-route-table --route-table-id $pub_route_id\n" >> $destroy_file
 echo -n "aws ec2 delete-route-table --route-table-id $priv_route_id\n" >> $destroy_file
 echo -n "aws ec2 detach-internet-gateway --internet-gateway-id $igw_id --vpc-id $vpc\n" >> $destroy_file

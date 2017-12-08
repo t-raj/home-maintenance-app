@@ -45,11 +45,11 @@ function dirapp_setup {
 	test -d $app_dir && echo "Directory exists" || (mkdir $app_dir; echo "Created Directory $app_dir") #app_dir="/opt/home_app"app_name="awesome_app"
 	test -d /tmp/deploy/${app_name}/ && cp -avr /tmp/deploy/${app_name}/ ${app_dir} || (echo "Application is not found"; exit 1)
 	chown -R $app_user:$app_group $app_dir
-        test -e ${app_dir}/${app_name}/$reqs_filename && pip install -r ${app_dir}/${app_name}/$reqs_filename || (echo "$reqs_filename is not found can't conitnue"; exit 1)
+        #test -e ${app_dir}/${app_name}/$reqs_filename && pip install -r ${app_dir}/${app_name}/$reqs_filename || (echo "$reqs_filename is not found can't conitnue"; exit 1)
 }
 
 function main {
-    test -e $yum_filename && yum -y install $(cat $yum_filename) || (echo " $yum_filename is not found, can't continue"; exit 1)
+    #test -e $yum_filename && yum -y install $(cat $yum_filename) || (echo " $yum_filename is not found, can't continue"; exit 1)
     create_group && create_svc_user && usermod -a -G $app_group $app_user
     dirapp_setup
     service_install_enable

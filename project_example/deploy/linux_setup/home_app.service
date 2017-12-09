@@ -6,7 +6,7 @@ Environment=HOME_APP=Menu.javac
 User=home.svc
 Group=homers
 WorkingDirectory=/opt/home_app/awesome_app
-ExecStart=/bin/python -m home run
+ExecStart=/usr/bin/java -jar /opt/home_app/awesome_app/home_app.jar
 Restart=on-failure
 
 [Install]

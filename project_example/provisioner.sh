@@ -49,7 +49,7 @@ function dirapp_setup {
 }
 
 function main {
-    #test -e $yum_filename && yum -y install $(cat $yum_filename) || (echo " $yum_filename is not found, can't continue"; exit 1)
+    yum install java
     create_group && create_svc_user && usermod -a -G $app_group $app_user
     dirapp_setup
     service_install_enable

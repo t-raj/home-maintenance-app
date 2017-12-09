@@ -1,5 +1,8 @@
 gcc-c++
 epel-release
+python-devel
+python-setuptools
+python-pip
 wget
 curl
 vim

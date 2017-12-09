@@ -4,24 +4,8 @@
 
 yum_filename="/tmp/deploy/linux_setup/yum-pkgs.txt"
 app_dir="/opt/home_app"
-app_user="home.svc"
 app_group="homers"
 app_name="awesome_app"
-reqs_filename="requirements.txt"
-service_file="home_app.service"
-
-function service_install_enable {
-	# NOTE: When you care a service for httpd make sure you do a chkconfig on it
-	cd /tmp/deploy/linux_setup/
-	if [ -e $service_file ]; then
-	  cp $service_file /lib/systemd/system/
-	  systemctl enable $service_file
-	  systemctl start $service_file
-	else
-	 echo "Service file doesn't exist, will exit"
-	 exit 1
-	fi
-}
 
 function create_group {
 	 if [ $(getent group $app_group) ]; then
@@ -49,10 +33,9 @@ function dirapp_setup {
 }
 
 function main {
-    #test -e $yum_filename && yum -y install $(cat $yum_filename) || (echo " $yum_filename is not found, can't continue"; exit 1)
+    test -e $yum_filename && yum -y install $(cat $yum_filename) || (echo " $yum_filename is not found, can't continue"; exit 1)
     create_group && create_svc_user && usermod -a -G $app_group $app_user
     dirapp_setup
-    service_install_enable
 }
 
 main

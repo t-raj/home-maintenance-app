@@ -6,7 +6,7 @@ Environment=HOME_APP=Menu.javac
 User=home.svc
 Group=homers
 WorkingDirectory=/opt/home_app/awesome_app
-ExecStart=/bin/java.jar -m home run
+ExecStart=/bin/java -jar awesome_app.jar
 Restart=on-failure
 
 [Install]

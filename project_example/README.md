@@ -1,30 +1,23 @@
-Example Final Project Part 2
+Final Childs, Raj Project Part 2
 ============================
 
 DIRECTIONS
 ==========
 
-This is the minimum. \**PLEASE REPLACE my comments with yours about how to do everything. \**You will be graded on the README.md and how well you have written it for me to test (in vagrant), create, and destroy your infrastructure.
+### Vagrant
 
-### Vagrant Testing
+#Run the following commands:
+vagrant up --provision
+vagrant ssh
+#You are now logged in to vagrant, in vagrant vm run commands:
+sudo su home
+cd /opt/home_app
+java Menu
+#You are now using the app, when finished run commands:
+logout
+vagrant destroy
 
--	**MODIFY FOR YOUR PROJECT**
-
-Part of the project is that I can create a vagrant instance that installs your whole project. This is separate from the infrastructure part. This is a very important step to make sure prior to deployment, that your linux environment works. This is needed to be a fully working vagrant environment for full points.
-
-Steps to test flask_app on Vagrant VM:
-
--	vagrant up --provision - vagrant ssh
--	In vagrant vm run commands:
-	-	sudo su -
-	-	service flask_app status (should say active and green)
-	-	lynx localhost:5000 (you should see a home page and like a signup and all that)
--	Exit out of Vagrant
--	Run: vagrant destroy
-
-**FOR YOUR PROJECT make sure you RECREATE the deploy.tar.gz**
-
-### Provisioner.
+### Provisioner
 
 -	**MODIFY FOR YOUR PROJECT**
 

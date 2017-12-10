@@ -1,0 +1,9 @@
+gcc-c++
+epel-release
+wget
+curl
+vim
+git
+lynx
+mysql
+java

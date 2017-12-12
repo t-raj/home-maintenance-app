@@ -4,27 +4,35 @@ Final Childs, Raj Project Part 2
 DIRECTIONS
 ==========
 
-### Vagrant
+## Vagrant
 
 ###Run the following commands:
 
-vagrant up --provision
+vagrant up --provision *to create a vagrant machine and set it up for app use*
 
-vagrant ssh
+vagrant ssh *to log into the machine*
 
 ###You are now logged in to vagrant, in vagrant vm run commands:
 
-sudo su home
+sudo su home *to log in as the service user "home"*
 
-cd /opt/home_app
+cd /opt/home_app *move to the directory where the app is located*
 
-java Menu
+java Menu *run the app*
 
-###You are now using the app, when finished run commands:
+###You are now using the app, when you have entered your info run commands:
 
-exit
+save *to save your info in the app*
 
-logout
+exit *to exit the app*
 
-vagrant destroy
+ls *to see your save info in a .txt file (YourName.txt)*
+
+exit *to exit the service user login*
+
+logout *to exit the vagrant machine*
+
+vagrant destroy *to remove the vagrant machine*
+
+## AWS
 

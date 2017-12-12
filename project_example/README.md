@@ -8,31 +8,31 @@ DIRECTIONS
 
 ###Run the following commands:
 
-vagrant up --provision *to create a vagrant machine and set it up for app use*
+vagrant up --provision    *to create a vagrant machine and set it up for app use*
 
-vagrant ssh *to log into the machine*
+vagrant ssh    *to log into the machine*
 
 ###You are now logged in to vagrant, in vagrant vm run commands:
 
-sudo su home *to log in as the service user "home"*
+sudo su home    *to log in as the service user "home"*
 
-cd /opt/home_app *move to the directory where the app is located*
+cd /opt/home_app    *to move to the directory where the app is located*
 
-java Menu *run the app*
+java Menu    *to run the app*
 
 ###You are now using the app, when you have entered your info run commands:
 
-save *to save your info in the app*
+save    *to save your info in the app*
 
-exit *to exit the app*
+exit    *to exit the app*
 
-ls *to see your save info in a .txt file (YourName.txt)*
+ls    *to see your save info in a .txt file (YourName.txt)*
 
-exit *to exit the service user login*
+exit    *to exit the service user login*
 
-logout *to exit the vagrant machine*
+logout    *to exit the vagrant machine*
 
-vagrant destroy *to remove the vagrant machine*
+vagrant destroy    *to remove the vagrant machine*
 
 ## AWS
 

@@ -3,7 +3,7 @@ Final Project Childs, Raj
 
 This application is a prototype in Java that is user interactive and helps homeowners/renters keep track of routine maintenance information.
 
-APP INSTRUCTIONS
+App Instructions
 ================
 
 1. Set up your account by entering `setup`
@@ -20,7 +20,7 @@ APP INSTRUCTIONS
 12. You can save by entering `save`.
 13. You can exit by entering `exit`.
 
-INFRASTRUCTURE INSTRUCTIONS
+Infrastructure Instructions
 ===========================
 
 ## Vagrant
@@ -56,9 +56,13 @@ aws iam create-user --user-name home *...to create the user "home"*
 aws iam create-access-key --user-name home *...to get access keys for "home"*
 
 aws configure *...to create a profile for "home"*
+
 AWS Access Key ID [None]: *...use Access Key ID output to console after last command*
+
 AWS Secret Access Key [None]: *...use Secret Access Key output to console after last command*
+
 Default region name [None]: *...enter "us-west-2"*
+
 Default output format [None]: *... enter "json"*
 
 ./create_infra.sh *...to setup AWS infrastructure*

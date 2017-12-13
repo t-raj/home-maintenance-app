@@ -39,7 +39,7 @@ aws ec2 associate-route-table  --subnet-id $privsub_id --route-table-id $priv_ro
 aws ec2 describe-route-tables --route-table-id $priv_route_id  --profile ${profile} --region ${region}
 
 # Create 1 EC2 Instance
-#aws ec2 create-key-pair --key-name HomeKey --query 'KeyMaterial' --output text > HomeKey.pem
+aws ec2 create-key-pair --key-name HomeKey --query 'KeyMaterial' --output text > HomeKey.pem
 chmod 400 HomeKey.pem
 
 

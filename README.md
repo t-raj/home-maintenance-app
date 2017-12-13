@@ -27,35 +27,35 @@ Infrastructure Instructions
 
 ###Run the following commands:
 
-vagrant up --provision    *...to create a vagrant machine and set it up for app use*
+`vagrant up --provision`    *...to create a vagrant machine and set it up for app use*
 
-vagrant ssh    *...to log into the machine*
+`vagrant ssh`    *...to log into the machine*
 
 ###You are now logged in to vagrant, in vagrant vm run commands:
 
-sudo su home    *...to log in as the service user "home"*
+`sudo su home`    *...to log in as the service user "home"*
 
-cd /opt/home_app    *...to move to the directory where the app is located*
+`cd /opt/home_app`    *...to move to the directory where the app is located*
 
-java Menu    *...to run the app*
+`java Menu`    *...to run the app*
 
-###You are now using the app, when you have entered your info run commands:
+###You are now using the app, see instructions above for details. When you have exited the app run commands:
 
-ls    *...to see your saved info in a .txt file (YourName.txt)*
+`ls`    *...to see your saved info in a .txt file (YourName.txt)*
 
-exit    *...to exit the service user login*
+`exit`    *...to exit the service user login*
 
-logout    *...to exit the vagrant machine*
+`logout`    *...to exit the vagrant machine*
 
-vagrant destroy    *...to remove the vagrant machine*
+`vagrant destroy`    *...to remove the vagrant machine and all of it's files*
 
 ## AWS
 
-aws iam create-user --user-name home *...to create the user "home"*
+`aws iam create-user --user-name home` *...to create the user "home"*
 
-aws iam create-access-key --user-name home *...to get access keys for "home"*
+`aws iam create-access-key --user-name home` *...to get access keys for "home"*
 
-aws configure *...to create a profile for "home"*
+`aws configure` *...to create a profile for "home"*
 
 AWS Access Key ID [None]: *...use Access Key ID output to console after last command*
 
@@ -65,4 +65,4 @@ Default region name [None]: *...enter "us-west-2"*
 
 Default output format [None]: *... enter "json"*
 
-./create_infra.sh *...to setup AWS infrastructure*
+`./create_infra.sh` *...to setup AWS infrastructure. Follow prompts in the console.*

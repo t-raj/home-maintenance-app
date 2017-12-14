@@ -1,1 +1,0 @@
-VPC: vpc-3a45ac43\nPRIVSUBID: subnet-b718faed\nPRIVROUTEID: rtb-2e6b5957\nSECURITYGROUPID: sg-d122a2ad\n

@@ -37,7 +37,7 @@ Infrastructure Instructions
 
 `cd /opt/home_app`    *...to move to the directory where the app is located*
 
-`java Menu`    *...to run the app*
+`java -jar Menu.jar` *... to run the app! See instructions above*
 
 ###You are now using the app, see instructions above for details. When you have exited the app run commands:
 
@@ -81,7 +81,7 @@ Default output format [None]: *... enter "json"*
 
 `git clone https://bethanychilds@bitbucket.org/tararaj21/dev-ops-project.git` *... to clone our repository*
 
-`cd dev-ops-project/AWS/deploy/home_app` *... to move to the folder with our app*
+`cd dev-ops-project/AWS/deploy/home_app` *...to move to the directory where the app is located*
 
 `java -jar Menu.jar` *... to run the app! See instructions above*
 

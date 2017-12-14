@@ -75,7 +75,7 @@ Default output format [None]: *... enter "json"*
 
 ###You are now logged in to your EC2, in your EC2 vm run commands:
 
-`yum install git` *... to install git in your EC2*
+`yum install git` *... to install git*
 
 `yum install java-1.7.0-openjdk*` *... to install the java jdk*
 

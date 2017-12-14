@@ -51,25 +51,7 @@ Infrastructure Instructions
 
 ## AWS
 
-`aws iam create-user --user-name home` *...to create the user "home"*
-
-`aws iam create-access-key --user-name home` *...to get access keys for "home"*
-
-`aws configure` *...to create a profile for "home"*
-
-AWS Access Key ID [None]: *...use Access Key ID output to console after last command*
-
-AWS Secret Access Key [None]: *...use Secret Access Key output to console after last command*
-
-Default region name [None]: *...enter "us-west-2"*
-
-Default output format [None]: *... enter "json"*
-
-`aws iam create-group --group-name Admins` *... to create a group called Admins*
-
-`aws iam attach-group-policy --group-name Admins --policy-arn arn:aws:iam::aws:policy/AdministratorAccess` *... to attach administrator access to the group*
-
-`aws iam add-user-to-group --user-name home --group-name Admins` *... to add home to this group*
+###Run the following commands:
 
 `./create_infra.sh` *... to setup AWS infrastructure. Follow prompts in the console.*
 

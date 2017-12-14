@@ -15,6 +15,18 @@ touch $endfile
 test -e $destroy_file && rm -rf $destroy_file
 touch $destroy_file
 
+# Create user and get access keys
+aws iam create-user --user-name $profile
+aws iam create-access-key --user-name home
+echo -n "Please enter the AWS Access Key ID and Secret Access Key when prompted."
+echo -n "For the default region name enter: " $region " for the default output format enter: json"
+aws configure
+
+# Create group and add permissions
+aws iam create-group --group-name Admins
+aws iam attach-group-policy --group-name Admins --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+aws iam add-user-to-group --user-name home --group-name Admins
+
 # Create VPC
 aws ec2 create-vpc --cidr-block ${vpc_block} --region ${region} --profile ${profile}
 echo -n "Please enter the VPC ID to tag it correctly: "

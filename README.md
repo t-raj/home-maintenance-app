@@ -73,7 +73,7 @@ Default output format [None]: *... enter "json"*
 
 `./create_infra.sh` *... to setup AWS infrastructure. Follow prompts in the console.*
 
-'ssh -i "KeyName.pem" ec2-user@ec2-52-24-176-182.us-west-2.compute.amazonaws.com` *...TODO: how can they get their specific ssh info?*
+###You are now logged in to your EC2, in your EC2 vm run commands:
 
 `yum install git` *... to install git in your EC2*
 

@@ -65,10 +65,23 @@ Default region name [None]: *...enter "us-west-2"*
 
 Default output format [None]: *... enter "json"*
 
-`aws iam create-group --group-name Admins`
+`aws iam create-group --group-name Admins` *... to create a group called Admins*
 
-`aws iam attach-group-policy --group-name Admins --policy-arn arn:aws:iam::aws:policy/AdministratorAccess`
+`aws iam attach-group-policy --group-name Admins --policy-arn arn:aws:iam::aws:policy/AdministratorAccess` *... to attach administrator access to the group*
 
-`aws iam add-user-to-group --user-name home --group-name Admins`
+`aws iam add-user-to-group --user-name home --group-name Admins` *... to add home to this group*
 
-`./create_infra.sh` *...to setup AWS infrastructure. Follow prompts in the console.*
+`./create_infra.sh` *... to setup AWS infrastructure. Follow prompts in the console.*
+
+'ssh -i "KeyName.pem" ec2-user@ec2-52-24-176-182.us-west-2.compute.amazonaws.com` *...TODO: how can they get their specific ssh info?*
+
+`yum install git` *... to install git in your EC2*
+
+`yum install java-1.7.0-openjdk*` *... to install the java jdk*
+
+`git clone https://bethanychilds@bitbucket.org/tararaj21/dev-ops-project.git` *... to clone our repository*
+
+`cd dev-ops-project/AWS/deploy/home_app` *... to move to the folder with our app*
+
+`java -jar Menu.jar` *... to run the app! See instructions above*
+

@@ -39,8 +39,8 @@ aws ec2 associate-route-table  --subnet-id $privsub_id --route-table-id $priv_ro
 aws ec2 describe-route-tables --route-table-id $priv_route_id  --profile ${profile} --region ${region}
 
 # Create 1 EC2 Instance
-#aws ec2 create-key-pair --key-name HomeKey --query 'KeyMaterial' --output text > HomeKey.pem
-#chmod 400 HomeKey.pem
+aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text > MyKeyPair.pem
+chmod 400 MyKeyPair.pem
 
 
 aws ec2 create-security-group --group-name SSHAccess --description "Security group for SSH access" --vpc-id $vpc
@@ -48,7 +48,7 @@ echo -n "Please enter the security group id: "
 read security_group_id
 echo -n "SECURITYGROUPID: $security_group_id\n" >> $endfile
 aws ec2 authorize-security-group-ingress --group-id ${security_group_id} --protocol tcp --port 22 --cidr 0.0.0.0/0
-aws ec2 run-instances --image-id ami-bf4193c7 --count 1 --instance-type t2.micro --key-name test.pem --security-group-ids $security_group_id --subnet-id $privsub_id --profile ${profile} --region ${region}
+aws ec2 run-instances --image-id ami-bf4193c7 --count 1 --instance-type t2.micro --key-name MyKeyPair.pem --security-group-ids $security_group_id --subnet-id $privsub_id --profile ${profile} --region ${region}
 
 
 echo -n "Please enter the ec2 instance id: "

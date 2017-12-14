@@ -55,6 +55,11 @@ echo -n "Please enter the ec2 instance id: "
 read ec2instance_id
 echo -n "EC2ID: $security_group_id\n" >> $endfile
 aws ec2 create-tags --resources $ec2instance_id --profile ${profile} --region ${region}
+aws ec2 describe-instances --instance-id $ec2instance_id
+
+echo -n "Please enter the public IP: "
+read public_ip
+echo -n "PUBLICIP: $public_ip\n" >> $endfile
 
 #setting up destory_infra.sh, need to destroy ec2 first
 echo -n "aws ec2 terminate-instances --instance-ids ${ec2instance_id}\n" >> $destroy_file
@@ -62,3 +67,6 @@ echo -n "aws ec2 delete-security-group --group-id $security_group_id\n" >> $dest
 echo -n "aws ec2 delete-subnet --subnet-id $privsub_id\n" >> $destroy_file
 echo -n "aws ec2 delete-route-table --route-table-id $priv_route_id\n" >> $destroy_file
 echo -n "aws ec2 delete-vpc --vpc-id $vpc\n" >> $destroy_file
+
+echo -n "You are now logging in to your EC2 instance."
+ssh -i "MyKeyPair.pem" ec2-user@ec2-$public_ip.us-west-2.compute.amazonaws.com

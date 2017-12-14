@@ -69,3 +69,12 @@ Infrastructure Instructions
 
 `java -jar Menu.jar` *... to run the app! See instructions above*
 
+###You are now using the app, see instructions above for details. When you have exited the app run commands:
+
+`ls`    *...to see your saved info in a .txt file (YourName.txt)*
+
+`logout`    *...to exit the ec2 instace*
+
+`chmod 775 generated_destroy_infra.sh` *... to make the file executable*
+
+`./generated_destroy_infra.sh` *... to delete the infrastructure you created. You must delete the group manually in the AWS console!*

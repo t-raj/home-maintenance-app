@@ -57,6 +57,12 @@ Infrastructure Instructions
 
 `aws configure` *...to create a profile for "home"*
 
+`aws iam create-group --group-name Admins`
+
+`aws iam attach-group-policy --group-name Admins --policy-arn arn:aws:iam::aws:policy/AdministratorAccess`
+
+`aws iam add-user-to-group --user-name home --group-name Admins`
+
 AWS Access Key ID [None]: *...use Access Key ID output to console after last command*
 
 AWS Secret Access Key [None]: *...use Secret Access Key output to console after last command*

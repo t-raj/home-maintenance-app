@@ -53,6 +53,8 @@ Infrastructure Instructions
 
 ###Run the following commands:
 
+`chmod 775 create_infra.sh` *… to make the file executable*
+
 `./create_infra.sh` *... to setup AWS infrastructure. Follow prompts in the console.*
 
 ###You are now logged in to your EC2, in your EC2 vm run commands:

@@ -15,17 +15,17 @@ touch $endfile
 test -e $destroy_file && rm -rf $destroy_file
 touch $destroy_file
 
-# Create user and get access keys
+# Create user, group, and group policy
 aws iam create-user --user-name $profile
-aws iam create-access-key --user-name home
+aws iam create-group --group-name Home_App
+aws iam attach-group-policy --group-name Home_App --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+aws iam add-user-to-group --user-name $profile --group-name Home_App
+
+# Get Access keys
+aws iam create-access-key --user-name $profile
 echo -n "Please enter the AWS Access Key ID and Secret Access Key when prompted."
 echo -n "For the default region name enter: " $region " for the default output format enter: json"
-aws configure
-
-# Create group and add permissions
-aws iam create-group --group-name Admins
-aws iam attach-group-policy --group-name Admins --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
-aws iam add-user-to-group --user-name home --group-name Admins
+aws configure --profile $profile
 
 # Create VPC
 aws ec2 create-vpc --cidr-block ${vpc_block} --region ${region} --profile ${profile}
@@ -69,7 +69,7 @@ echo -n "EC2ID: $security_group_id\n" >> $endfile
 aws ec2 create-tags --resources $ec2instance_id --profile ${profile} --region ${region}
 aws ec2 describe-instances --instance-id $ec2instance_id
 
-echo -n "Please enter the public IP: "
+echo -n "Please WAIT A FEW MINUTES WHILE THE MACHINE BOOTS. Then enter the public IP: "
 read public_ip
 echo -n "PUBLICIP: $public_ip\n" >> $endfile
 

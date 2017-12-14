@@ -23,8 +23,12 @@ aws iam add-user-to-group --user-name $profile --group-name Home_App
 
 # Get Access keys
 aws iam create-access-key --user-name $profile
-echo -n "Please enter the AWS Access Key ID and Secret Access Key when prompted."
-echo -n "For the default region name enter: " $region " for the default output format enter: json"
+echo -n "Please enter the following when prompted: \n"
+echo -n "1. AWS Access Key ID\n"
+echo -n "2. Secret Access Key\n"
+echo -n "3. For the default region name enter: " $region \n
+echo -n "4. For the default output format enter: json\n"
+
 aws configure --profile $profile
 
 # Create VPC
@@ -51,8 +55,7 @@ aws ec2 associate-route-table  --subnet-id $privsub_id --route-table-id $priv_ro
 aws ec2 describe-route-tables --route-table-id $priv_route_id  --profile ${profile} --region ${region}
 
 # Create 1 EC2 Instance
-aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text > MyKeyPair.pem
-chmod 400 MyKeyPair.pem
+aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text > MyKeyPair
 
 
 aws ec2 create-security-group --group-name SSHAccess --description "Security group for SSH access" --vpc-id $vpc
@@ -60,7 +63,7 @@ echo -n "Please enter the security group id: "
 read security_group_id
 echo -n "SECURITYGROUPID: $security_group_id\n" >> $endfile
 aws ec2 authorize-security-group-ingress --group-id ${security_group_id} --protocol tcp --port 22 --cidr 0.0.0.0/0
-aws ec2 run-instances --image-id ami-bf4193c7 --count 1 --instance-type t2.micro --key-name MyKeyPair.pem --security-group-ids $security_group_id --subnet-id $privsub_id --profile ${profile} --region ${region}
+aws ec2 run-instances --image-id ami-bf4193c7 --count 1 --instance-type t2.micro --key-name MyKeyPair --security-group-ids $security_group_id --subnet-id $privsub_id --profile ${profile} --region ${region}
 
 
 echo -n "Please enter the ec2 instance id: "
@@ -69,9 +72,9 @@ echo -n "EC2ID: $security_group_id\n" >> $endfile
 aws ec2 create-tags --resources $ec2instance_id --profile ${profile} --region ${region}
 aws ec2 describe-instances --instance-id $ec2instance_id
 
-echo -n "Please WAIT A FEW MINUTES WHILE THE MACHINE BOOTS. Then enter the public IP: "
+echo -n "Please WAIT A FEW MINUTES WHILE THE MACHINE BOOTS. Then enter the private IP: "
 read public_ip
-echo -n "PUBLICIP: $public_ip\n" >> $endfile
+echo -n "PRIVATEIP: $private_ip\n" >> $endfile
 
 #setting up destory_infra.sh, need to destroy ec2 first
 echo -n "aws ec2 terminate-instances --instance-ids ${ec2instance_id}\n" >> $destroy_file
@@ -81,4 +84,4 @@ echo -n "aws ec2 delete-route-table --route-table-id $priv_route_id\n" >> $destr
 echo -n "aws ec2 delete-vpc --vpc-id $vpc\n" >> $destroy_file
 
 echo -n "You are now logging in to your EC2 instance."
-ssh -i "MyKeyPair.pem" ec2-user@ec2-$public_ip.us-west-2.compute.amazonaws.com
+ssh -i "MyKeyPair" ec2-user@ec2-$private_ip.us-west-2.compute.amazonaws.com

@@ -89,6 +89,9 @@ echo -n "PRIVATEIP: $private_ip\n" >> $endfile
 #setting up destory_infra.sh, need to destroy ec2 first
 echo -e "#!/bin/bash" >> $destroy_file
 echo -e "aws ec2 terminate-instances --instance-ids ${ec2instance_id}\n" >> $destroy_file
+echo -e "Please wait, machine terminating...\n" >> $destroy_file
+echo -e "sleep 1m" >> $destroy_file
+echo -e "Still terminating...\n" >> $destroy_file
 echo -e "sleep 1m" >> $destroy_file
 echo -e "aws ec2 delete-security-group --group-id $security_group_id\n" >> $destroy_file
 echo -e "aws ec2 delete-subnet --subnet-id $privsub_id\n" >> $destroy_file

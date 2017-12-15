@@ -77,9 +77,12 @@ echo -n "EC2ID: $security_group_id\n" >> $endfile
 aws ec2 create-tags --resources $ec2instance_id --profile ${profile} --region ${region} --tags Key=Name,Value=${main_tag}
 aws ec2 describe-instances --instance-id $ec2instance_id
 
-echo -n "Please wait, the machine is booting."
-sleep 2m
-echo -n "Enter the private IP: "
+echo "Please wait, the machine is booting."
+sleep 1m
+echo "Still booting..."
+sleep 1m
+
+echo "Enter the private IP: "
 read private_ip
 echo -n "PRIVATEIP: $private_ip\n" >> $endfile
 

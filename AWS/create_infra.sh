@@ -28,7 +28,7 @@ aws iam create-access-key --user-name $profile
 echo -n "Please enter the following when prompted: "
 echo -n "1. Access Key ID "
 echo -n "2. Secret Access Key "
-echo -n "3. For the default region name enter: " $region
+echo -n "3. For the default region name enter: " $region " "
 echo -n "4. For the default output format enter: json"
 
 aws configure --profile $profile

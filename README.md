@@ -53,7 +53,7 @@ Infrastructure Instructions
 
 ###Run the following commands:
 
-`chmod 775 create_infra.sh` *â€¦ to make the file executable*
+`chmod 775 create_infra.sh` *… to make the file executable*
 
 `./create_infra.sh` *... to setup AWS infrastructure. Follow prompts in the console.*
 
@@ -63,7 +63,7 @@ Infrastructure Instructions
 
 `yum install java-1.7.0-openjdk*` *... to install the java jdk*
 
-`git clone https://bethanychilds@bitbucket.org/tararaj21/dev-ops-project.git` *... to clone our repository*
+`git clone https://`[your bitbucket name]`@bitbucket.org/tararaj21/dev-ops-project.git` *... to clone our repository*
 
 `cd dev-ops-project/AWS/deploy/home_app` *...to move to the directory where the app is located*
 

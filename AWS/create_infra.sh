@@ -130,5 +130,12 @@ echo -e "aws iam delete-user --user-name $profile\n" >> $destroy_file
 #echo -e "aws iam delete-group-policy --group-name $group --policy-name $policy\n" >> $destroy_file #doesn't work
 #echo -e "aws iam delete-group --group-name $group\n" >> $destroy_file
 
+#setting up S3 bucket
+echo -n "Please enter a name for your S3 bucket. Bucket names need to be globally unique so use something funky: "
+read s3
+aws s3api create-bucket --bucket $s3 --region us-west-2 --profile home --create-bucket-configuration LocationConstraint=us-west-2
+echo -n "If the bucket name was not available, you can run the following command with a different bucket name after the script completes: aws s3api create-bucket --bucket NAME --region us-west-2 --profile home --create-bucket-configuration LocationConstraint=us-west-2\n"
+
+#SSH into EC2 instance
 echo -n "You are now logging in to your EC2 instance."
 ssh -i "MyKeyPair" ec2-user@$private_ip

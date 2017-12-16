@@ -5,7 +5,7 @@ vpc_block="10.0.0.0/16"
 profile="home"
 group="Home_App"
 private_subnet="10.0.0.0/24"
-public_subnet="10.0.1.0/24"
+#public_subnet="10.0.1.0/24"
 main_tag="Home_App"
 endfile="all_instances.txt"
 destroy_file="generated_destroy_infra.sh"
@@ -26,10 +26,10 @@ aws iam add-user-to-group --user-name $profile --group-name $group
 
 # Get Access keys
 aws iam create-access-key --user-name $profile
-echo -n "Please enter the following when prompted: "
-echo -n "1. Access Key ID "
-echo -n "2. Secret Access Key "
-echo -n "3. For the default region name enter: " $region
+echo -e "Please enter the following when prompted: \n"
+echo -e "1. Access Key ID\n"
+echo -e "2. Secret Access Key\n"
+echo -e "3. For the default region name enter: " $region\n
 echo -e "4. For the default output format enter: json\n"
 
 aws configure --profile $profile
@@ -45,24 +45,24 @@ echo -n "VPC: $vpc\n" >> $endfile
 aws ec2 create-tags --resources ${vpc} --tags Key=Name,Value=${main_tag} --profile ${profile}
 
 # Create Subnet
-aws ec2 create-subnet --vpc-id ${vpc} --cidr-block $public_subnet
-echo -n "Please enter the public_subnet id: "
-read pubsub_id
-echo -n "PUBSUBSID: $pubsub_id\n" >> $endfile
-aws ec2 create-tags --resources ${pubsub_id} --tags Key=Name,Value=${main_tag} --profile ${profile}
+#aws ec2 create-subnet --vpc-id ${vpc} --cidr-block $public_subnet
+#echo -n "Please enter the public_subnet id: "
+#read pubsub_id
+#echo -n "PUBSUBSID: $pubsub_id\n" >> $endfile
+#aws ec2 create-tags --resources ${pubsub_id} --tags Key=Name,Value=${main_tag} --profile ${profile}
 aws ec2 create-subnet --vpc-id ${vpc} --cidr-block $private_subnet
-echo -n "Please enter the private_subnet id: "
+echo -n "Please enter the subnet id: "
 read privsub_id
 echo -n "PRIVSUBID: $privsub_id\n" >> $endfile
 aws ec2 create-tags --resources ${privsub_id} --tags Key=Name,Value=${main_tag} --profile ${profile}
 
 # Create IGW
-aws ec2 create-internet-gateway --region ${region} --profile ${profile}
-echo -n "Please enter the igw id: "
-read igw_id
-echo -n "IGWID: $igw_id\n" >> $endfile
-aws ec2 attach-internet-gateway --vpc-id $vpc --internet-gateway-id ${igw_id} --profile ${profile} --region ${region}
-aws ec2 create-tags --resources $igw_id --tags Key=Name,Value=${main_tag} --profile ${profile}
+#aws ec2 create-internet-gateway --region ${region} --profile ${profile}
+#echo -n "Please enter the igw id: "
+#read igw_id
+#echo -n "IGWID: $igw_id\n" >> $endfile
+#aws ec2 attach-internet-gateway --vpc-id $vpc --internet-gateway-id ${igw_id} --profile ${profile} --region ${region}
+#aws ec2 create-tags --resources $igw_id --tags Key=Name,Value=${main_tag} --profile ${profile}
 
 # Create Private RouteTable and Associate it to private subnet
 aws ec2 create-route-table --vpc-id $vpc --region ${region} --profile ${profile}
@@ -78,8 +78,7 @@ aws ec2 allocate-address  --profile ${profile} --region ${region}
 echo -n "Please enter the allocation id: "
 read elastic_id
 echo -n "ELASTICID: $elastic_id\n" >> $endfile
-aws ec2 create-nat-gateway --subnet-id $pubsub_id --allocation-id $elastic_id
-#aws ec2 create-nat-gateway --profile ${profile} --region ${region} --allocation-id $elastic_id
+aws ec2 create-nat-gateway --subnet-id $privsub_id --allocation-id $elastic_id --profile ${profile} --region ${region}
 echo -n "Please enter the nat gateway id: "
 read natgw_id
 echo -n "NATGWID: $natgw_id\n" >> $endfile
@@ -95,7 +94,7 @@ echo -n "Please enter the security group id: "
 read security_group_id
 echo -n "SECURITYGROUPID: $security_group_id\n" >> $endfile
 aws ec2 authorize-security-group-ingress --group-id ${security_group_id} --protocol tcp --port 22 --cidr 0.0.0.0/0
-aws ec2 run-instances --image-id ami-bf4193c7 --count 1 --instance-type t2.micro --key-name MyKeyPair --security-group-ids $security_group_id --subnet-id ${privsub_id} --profile ${profile} --region ${region}
+aws ec2 run-instances --image-id ami-bf4193c7 --count 1 --instance-type t2.micro --key-name MyKeyPair --security-group-ids $security_group_id --subnet-id ${privsub_id} --profile ${profile} --region ${region} --associate-public-ip-address
 
 
 echo -n "Please enter the instance id: "
@@ -105,11 +104,15 @@ aws ec2 create-tags --resources $ec2instance_id --profile ${profile} --region ${
 aws ec2 describe-instances --instance-id $ec2instance_id
 
 echo "Please wait, the machine is booting."
-sleep 1m
+sleep 30
 echo "Still booting..."
-sleep 1m
+sleep 30
+echo "Almost there..."
+sleep 30
+echo "30 more seconds..."
+sleep 30
 
-echo "Enter the private IP: "
+echo "Enter the public IP: "
 read private_ip
 echo -n "PRIVATEIP: $private_ip\n" >> $endfile
 
@@ -117,8 +120,15 @@ echo -n "PRIVATEIP: $private_ip\n" >> $endfile
 echo -e "#!/bin/bash" >> $destroy_file
 echo -e "aws ec2 terminate-instances --instance-ids ${ec2instance_id}\n" >> $destroy_file
 echo -e "echo Please wait, machine terminating...\n" >> $destroy_file
-echo -e "sleep 1m" >> $destroy_file
+echo -e "sleep 30" >> $destroy_file
 echo -e "echo Still terminating...\n" >> $destroy_file
+echo -e "sleep 30" >> $destroy_file
+echo -e "echo Almost there...\n" >> $destroy_file
+echo -e "sleep 30" >> $destroy_file
+echo -e "echo 30 more seconds...\n" >> $destroy_file
+echo -e "sleep 30" >> $destroy_file
+echo -e "aws ec2 delete-nat-gateway --nat-gateway-id $natgw_id\n" >> $destroy_file
+echo -e "echo Please wait, nat gateway terminating...\n" >> $destroy_file
 echo -e "sleep 1m" >> $destroy_file
 echo -e "aws ec2 delete-security-group --group-id $security_group_id\n" >> $destroy_file
 echo -e "aws ec2 delete-subnet --subnet-id $privsub_id\n" >> $destroy_file

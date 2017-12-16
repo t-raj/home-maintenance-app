@@ -9,7 +9,7 @@ private_subnet="10.0.0.0/24"
 main_tag="Home_App"
 endfile="all_instances.txt"
 destroy_file="generated_destroy_infra.sh"
-policy="AdministratorAccess" #not sure what policy to give, so chose Admin
+policy="AdministratorAccess"
 
 
 test -e $endfile && rm -rf $endfile
@@ -57,12 +57,12 @@ echo -n "PRIVSUBID: $privsub_id\n" >> $endfile
 aws ec2 create-tags --resources ${privsub_id} --tags Key=Name,Value=${main_tag} --profile ${profile}
 
 # Create IGW
-#aws ec2 create-internet-gateway --region ${region} --profile ${profile}
-#echo -n "Please enter the igw id: "
-#read igw_id
-#echo -n "IGWID: $igw_id\n" >> $endfile
-#aws ec2 attach-internet-gateway --vpc-id $vpc --internet-gateway-id ${igw_id} --profile ${profile} --region ${region}
-#aws ec2 create-tags --resources $igw_id --tags Key=Name,Value=${main_tag} --profile ${profile}
+aws ec2 create-internet-gateway --region ${region} --profile ${profile}
+echo -n "Please enter the igw id: "
+read igw_id
+echo -n "IGWID: $igw_id\n" >> $endfile
+aws ec2 attach-internet-gateway --vpc-id $vpc --internet-gateway-id ${igw_id} --profile ${profile} --region ${region}
+aws ec2 create-tags --resources $igw_id --tags Key=Name,Value=${main_tag} --profile ${profile}
 
 # Create Private RouteTable and Associate it to private subnet
 aws ec2 create-route-table --vpc-id $vpc --region ${region} --profile ${profile}

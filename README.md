@@ -73,6 +73,8 @@ Infrastructure Instructions
 
 `ls`    *...to see your saved info in a .txt file (YourName.txt)*
 
+`aws s3 cp <file>  s3://<bucket> --profile home` *... to save the output file to an S3 bucket. Make sure to use your file and S3 bucket names.*
+
 `logout`    *...to exit the ec2 instace*
 
 `chmod 775 generated_destroy_infra.sh` *... to make the file executable*

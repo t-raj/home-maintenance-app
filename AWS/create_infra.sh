@@ -70,6 +70,7 @@ echo -n "Please enter the route table id: "
 read priv_route_id
 echo -n "PRIVROUTEID: $priv_route_id\n" >> $endfile
 aws ec2 create-tags --resources ${priv_route_id} --tags Key=Name,Value=private_${main_tag} --profile ${profile} --region ${region}
+aws ec2 create-route --route-table-id $priv_route_id --destination-cidr-block 0.0.0.0/0 --gateway-id $igw_id
 aws ec2 associate-route-table --subnet-id ${privsub_id} --route-table-id ${priv_route_id} --profile ${profile} --region ${region}
 aws ec2 describe-route-tables --route-table-id ${priv_route_id}  --profile ${profile} --region ${region}
 
@@ -116,8 +117,15 @@ echo "Enter the public IP: "
 read private_ip
 echo -n "PRIVATEIP: $private_ip\n" >> $endfile
 
+#setting up S3 bucket
+echo -n "Please enter a name for your S3 bucket. Bucket names need to be globally unique so use something funky: "
+read s3
+aws s3api create-bucket --bucket $s3 --region us-west-2 --profile home --create-bucket-configuration LocationConstraint=us-west-2
+echo -n "If the bucket name was not available, you can run the following command with a different bucket name after the script completes: aws s3api create-bucket --bucket NAME --region us-west-2 --profile home --create-bucket-configuration LocationConstraint=us-west-2\n"
+
 #setting up destory_infra.sh, need to destroy ec2 first
 echo -e "#!/bin/bash" >> $destroy_file
+echo -e "  $ aws s3 rb s3://$s3 --force\n" >> $destroy_file
 echo -e "aws ec2 terminate-instances --instance-ids ${ec2instance_id}\n" >> $destroy_file
 echo -e "echo Please wait, machine terminating...\n" >> $destroy_file
 echo -e "sleep 30" >> $destroy_file
@@ -139,12 +147,6 @@ echo -e "aws iam delete-access-key --access-key $access_key --user-name $profile
 echo -e "aws iam delete-user --user-name $profile\n" >> $destroy_file
 #echo -e "aws iam delete-group-policy --group-name $group --policy-name $policy\n" >> $destroy_file #doesn't work
 #echo -e "aws iam delete-group --group-name $group\n" >> $destroy_file
-
-#setting up S3 bucket
-echo -n "Please enter a name for your S3 bucket. Bucket names need to be globally unique so use something funky: "
-read s3
-aws s3api create-bucket --bucket $s3 --region us-west-2 --profile home --create-bucket-configuration LocationConstraint=us-west-2
-echo -n "If the bucket name was not available, you can run the following command with a different bucket name after the script completes: aws s3api create-bucket --bucket NAME --region us-west-2 --profile home --create-bucket-configuration LocationConstraint=us-west-2\n"
 
 #SSH into EC2 instance
 echo -n "You are now logging in to your EC2 instance."

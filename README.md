@@ -1,7 +1,9 @@
-Final Project Childs, Raj
+Home Maintenance App
 =========================
 
-This application is a prototype in Java that is user interactive and helps homeowners/renters keep track of routine maintenance information.
+This application is a user interactive Java prototype for an app that helps homeowners/renters keep track of routine maintenance information.
+
+The app itself is located in documents/out. Provisioning and deployment information is located in the Vagrant and AWS folders.
 
 App Instructions
 ================
@@ -53,7 +55,7 @@ Infrastructure Instructions
 
 ###Run the following commands:
 
-`chmod 775 create_infra.sh` *… to make the file executable*
+`chmod 775 create_infra.sh` *â€¦ to make the file executable*
 
 `./create_infra.sh` *... to setup AWS infrastructure. Follow prompts in the console.*
 
